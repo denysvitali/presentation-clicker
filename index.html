@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Presentation Remote</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    </head>
+    <body>
+        <h1>Presentation Remote</h1>
+        <div id="clock"></div>
+        <div id="next" class="button">NEXT</div><br/><br/>
+        <div id="prev" class="button">PREV</div>
+    </body>
+
+    <style>
+        body{
+            font-family: "Helvetica";
+            text-align: center;
+        }
+        #clock{
+            font-size: 2em;
+        }
+        .button{
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+            height: 90px;
+            width: 150px;
+            color: #FFF;
+            background-color: #666;
+            margin: 40px;
+            padding: 5px;
+            line-height: 90px;
+            user-select: none;
+        }
+    </style>
+
+    <script>
+        var secondsRemaining = 60 * 10;
+        function nextReq() {
+            httpRequest = new XMLHttpRequest();
+
+            if (!httpRequest) {
+            alert('Giving up :( Cannot create an XMLHTTP instance');
+            return false;
+            }
+            httpRequest.open('GET', '/next');
+            httpRequest.send();
+        }
+
+        function prevReq() {
+            httpRequest = new XMLHttpRequest();
+
+            if (!httpRequest) {
+            alert('Giving up :( Cannot create an XMLHTTP instance');
+            return false;
+            }
+            httpRequest.open('GET', '/prev');
+            httpRequest.send();
+        }
+
+        document.getElementById('next').onclick = function(){
+            console.log("NEXT");
+            nextReq();
+        };
+        document.getElementById('prev').onclick = function(){
+            prevReq();
+        };
+
+        function tick(){
+            document.getElementById('clock').innerHTML = secondsRemaining;
+            if(secondsRemaining == 0){
+                return;
+            }
+            secondsRemaining--;
+            setTimeout('tick()', 1000);
+        }
+
+        tick();
+    </script>
+</html>
