@@ -7,14 +7,14 @@ def home(request):
 
 @route('/next')
 def next(req):
-    call(["zsh", '-c' , 'xdotool key --window "$(xdotool search "Slides" | head -n1)" Right'])
+    call(["sh", '-c' , 'xdotool key --window "$(xdotool search "Slides" | head -n1)" Right'])
     return "ok"
 
 
 @route('/prev')
 def prev(req):
     print("Got prev")
-    call(["zsh", '-c' , 'xdotool key --window "$(xdotool search "Slides" | head -n1)" Left'])
+    call(["sh", '-c' , 'xdotool key --window "$(xdotool search "Slides" | head -n1)" Left'])
     return "ok"
 
 
